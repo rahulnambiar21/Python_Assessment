@@ -1,0 +1,225 @@
+{% extends 'patient-header.html' %}
+{% load static %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="zxx">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script type="text/javascript">
+        function checkFname()
+        {
+            var f=document.signup.fname.value;
+            var reg=/^[A-Za-z]+$/;
+            if(f=="")
+            {
+                document.getElementById("fname").innerHTML="*Please Enter First Name";
+            }
+            else if(!reg.test(f))
+            {
+                document.getElementById("fname").innerHTML="*Please Enter only Alphabets";
+            }
+            else
+            {
+                document.getElementById("fname").innerHTML="";
+            }
+        }
+        function checkLname()
+        {
+            var l=document.signup.lname.value;
+            var reg=/^[A-Za-z]+$/;
+            if(l=="")
+            {
+                document.getElementById("lname").innerHTML="*Please Enter Last Name";
+            }
+            else if(!reg.test(l))
+            {
+                document.getElementById("lname").innerHTML="*Please Enter only Alphabets";
+            }
+            else
+            {
+                document.getElementById("lname").innerHTML="";
+            }
+        }
+        function checkEmail()
+        {
+            var e=document.signup.email.value;
+            var reg=/^[A-Za-z0-9-_.]+@[A-Za-z]+\.[A-Za-z]{2,4}$/;
+            if(e=="")
+            {
+                document.getElementById("email").innerHTML="*Please Enter Email Id";
+            }
+            else if(!reg.test(e))
+            {
+                document.getElementById("email").innerHTML="*Please Enter valid Email Id";
+            }
+            else
+            {
+                document.getElementById("email").innerHTML="";
+            }
+        }
+        function checkMobile()
+        {
+            var m=document.signup.mobile.value;
+            var reg=/^\d{10}$/;
+            if(m=="")
+            {
+                document.getElementById("mobile").innerHTML="*Please Enter Mobile Number";
+            }
+            else if(!reg.test(m))
+            {
+                document.getElementById("mobile").innerHTML="*Please Enter 10 Digits Only";
+            }
+            else
+            {
+                document.getElementById("mobile").innerHTML="";
+            }
+        }
+        function checkPassword()
+        {
+            var p=document.signup.password.value;
+            var reg=/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,20}$/;
+            if(p=="")
+            {
+                document.getElementById("password").innerHTML="*Please Enter Password";
+            }
+            else if(!reg.test(p))
+            {
+                document.getElementById("password").innerHTML="Min 1 Uppercase, Lowercase, Special & Numeric(8,20)";
+            }
+            else
+            {
+                document.getElementById("password").innerHTML="";
+            }
+        }
+        function checkCPassword()
+        {
+            var p1=document.signup.password.value;
+            var p2=document.signup.cpassword.value;
+            if(p2=="")
+            {
+                document.getElementById("cpassword").innerHTML="*Please Enter Confirm Password";
+            }
+            else if(p1!=p2)
+            {
+                document.getElementById("cpassword").innerHTML="Password does not Match";
+            }
+            else
+            {
+                document.getElementById("cpassword").innerHTML="";
+            }
+        }
+    </script>
+    <style type="text/css">
+        td{
+            padding: 10px;
+        }
+    </style>
+    <title></title>
+</head>
+
+<body id="top">
+
+<header>
+	
+</header>
+	
+
+
+<section class="page-title bg-1">
+  <div class="overlay"></div>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="block text-center">
+          <span class="text-white">Book your Seat</span>
+          <h1 class="text-capitalize mb-5 text-lg">Appoinment</h1>
+
+          <!-- <ul class="list-inline breadcumb-nav">
+            <li class="list-inline-item"><a href="index.html" class="text-white">Home</a></li>
+            <li class="list-inline-item"><span class="text-white">/</span></li>
+            <li class="list-inline-item"><a href="#" class="text-white-50">Book your Seat</a></li>
+          </ul> -->
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="appoinment section">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-4">
+          <div class="mt-3">
+            <div class="feature-icon mb-3">
+              <i class="icofont-support text-lg"></i>
+            </div>
+             <span class="h3">Call for an Emergency Service!</span>
+              <h2 class="text-color mt-3">+84 789 1256 </h2>
+          </div>
+      </div>
+
+      <div class="col-lg-8">
+           <div class="appoinment-wrap mt-5 mt-lg-0 pl-lg-5">
+            <h2 class="mb-2 title-color">Book an appoinment</h2>
+            <p class="mb-4">Mollitia dicta commodi est recusandae iste, natus eum asperiores corrupti qui velit . Iste dolorum atque similique praesentium soluta.</p>
+
+                {% if msg %}
+                <b style="color: green;">{{msg}}</b>
+                {% endif %}
+                <form name="signup" method="post" action="{% url 'signup' %}" enctype="multipart/form-data">
+                {% csrf_token %}
+                    <table>
+                        <tr>
+                            <td>First Name</td>
+                            <td><input type="text" name="fname" class="form-control" onblur="checkFname();"></td>
+                            <td><span id="fname" style="color:red;"></span></td>
+                        </tr>
+                        <tr>
+                            <td>Last Name</td>
+                            <td><input type="text" name="lname" class="form-control" onblur="checkLname();"></td>
+                            <td><span id="lname" style="color:red;"></span></td>
+                        </tr>
+                        <tr>
+                            <td>Email</td>
+                            <td><input type="text" name="email" class="form-control" onblur="checkEmail();"></td>
+                            <td><span id="email" style="color:red;"></span></td>
+                        </tr>
+                        <tr>
+                            <td>Mobile</td>
+                            <td><input type="text" name="mobile" class="form-control" onblur="checkMobile();"></td>
+                            <td><span id="mobile" style="color:red;"></span></td>
+                        </tr>
+                        <tr>
+                            <td>Message</td>
+                            <td><textarea rows="5" cols="22" name="message" class="form-control"></textarea></td>
+                        </tr>
+                        <tr>
+                            <td>Doctor Type</td>
+                            <td><select name="doctortype" class="form-control">
+                                    <option>----- Select Doctor Type -----</option>
+                                    <option value="cardiology">Cardiology</option>
+                                    <option value="dental">Dental</option>
+                                    <option value="neurology">Neurology</option>
+                                    <option value="medicine">Medicine</option>
+                                    <option value="pediatric">Pediatric</option>
+                                    <option value="traumatology">Traumatology</option>
+                            </select></td>
+
+                        </tr>
+                    </table>
+                    <br><br>
+                    <div>
+                        <button class="btn btn-main btn-round-full">Make Appointment</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+  </body>
+  </html>
+  {% endblock %}
